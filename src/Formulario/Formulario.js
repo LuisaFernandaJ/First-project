@@ -19,7 +19,7 @@ const Root = styled("div")(({ theme }) => ({
     justifyContent: "center",
     flexDirection: "column",
     alignItems: "center",
-    backgroundColor: "blue",
+    backgroundColor: "black",
     marginTop: 97,
     marginLeft: 100,
     marginRight: 100,
