@@ -7,6 +7,7 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
+  Checkbox,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { Route, Routes } from "react-router-dom";
@@ -63,6 +64,10 @@ const Root = styled("div")(({ theme }) => ({
     margin: 12,
     width: "100%",
   },
+  "& .position": {
+    display: "flex",
+    flexDirection: "row",
+  },
 }));
 
 function Formulario() {
@@ -98,8 +103,10 @@ function Formulario() {
     email: "",
     phone: "",
   });
+
   const [errors, setErrors] = useState(false);
   const [helpertext, setHelpertext] = useState(false);
+  const [checkbox, setCheckbox] = useState(false);
 
   const onChangeText = (event) => {
     setFormulario(event.target.value);
@@ -116,7 +123,8 @@ function Formulario() {
       formulario.name === "" ||
       formulario.email === "" ||
       ocupation === "" ||
-      formulario.phone === ""
+      formulario.phone === "" ||
+      checkbox === false
     ) {
       alert("Campos obligatorios");
       setErrors(true);
@@ -125,6 +133,7 @@ function Formulario() {
       alert("Sus datos se han enviado");
       setErrors(false);
       setHelpertext(false);
+      setCheckbox(true);
       setFormulario({
         name: "",
         email: "",
@@ -133,6 +142,9 @@ function Formulario() {
       setOcupation({
         ocupation: "",
       });
+      setCheckbox({
+        checkbox: false,
+      });
     }
   };
   const [open, setOpen] = useState(false);
@@ -140,6 +152,7 @@ function Formulario() {
   const toggleModal = () => {
     setOpen(!open);
   };
+  const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
   return (
     <div>
@@ -191,7 +204,10 @@ function Formulario() {
               error={errors}
               helperText={helpertext === true ? "campos obligatorios" : false}
             />
-            <Button onClick={toggleModal}>Terminos y Condiciones</Button>
+            <div className="position">
+              <Checkbox value={checkbox} {...label} />
+              <Button onClick={toggleModal}>Terminos y Condiciones</Button>
+            </div>
             <Button onClick={sendInfo} variant="contained">
               Enviar
             </Button>
